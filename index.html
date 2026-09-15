@@ -20,8 +20,10 @@ html,body{margin:0}
   --ink-soft:   #111111;
   --ink-faint:  #56564F;
   --rule:       #D9D9D3;
-  --accent:     #000000;
-  --accent-bg:  #EAEAE5;
+  --accent:     #8A5E00;
+  --accent-bg:  #FBF0C2;
+  --accent-line:#E3C76B;
+  --chip-bg:    #EAEAE5;
 
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --sans:  "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -37,8 +39,10 @@ html,body{margin:0}
     --ink-soft:  #EBEBE8;
     --ink-faint: #9B9B94;
     --rule:      #2D2D29;
-    --accent:    #FAFAF8;
-    --accent-bg: #1F1F1C;
+    --accent:    #E8C46A;
+    --accent-bg: #3B300E;
+    --accent-line:#6A5518;
+    --chip-bg:   #1F1F1C;
   }
 }
 
@@ -48,8 +52,10 @@ html,body{margin:0}
   --ink-soft:  #EBEBE8;
   --ink-faint: #9B9B94;
   --rule:      #2D2D29;
-  --accent:    #FAFAF8;
-  --accent-bg: #1F1F1C;
+  --accent:    #E8C46A;
+  --accent-bg: #3B300E;
+  --accent-line:#6A5518;
+  --chip-bg:   #1F1F1C;
 }
 
 * { box-sizing: border-box; }
@@ -62,16 +68,6 @@ body {
   font-size: 16.5px;
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
-}
-
-#progress {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--ink-faint);
-  z-index: 50;
-  transition: width 90ms linear;
 }
 
 .wrap {
@@ -115,7 +111,7 @@ h1 {
 
 .avail {
   color: var(--ink-soft);
-  background: var(--accent-bg);
+  background: var(--chip-bg);
   padding: 2px 8px;
   border-radius: 3px;
 }
@@ -129,14 +125,14 @@ button.pdf, a.pdf {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  padding: 8px 14px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  padding: 10px 18px;
   cursor: pointer;
   transition: border-color 140ms ease, background 140ms ease;
 }
-a.pdf:hover, button.pdf:hover:not(:disabled) { border-color: var(--ink); background: var(--accent-bg); }
+a.pdf:hover, button.pdf:hover:not(:disabled) { border-color: var(--accent); background: #F7E7A4; }
 a.pdf:focus-visible, button.pdf:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 button.pdf:disabled { cursor: default; color: var(--ink-faint); }
 
@@ -154,12 +150,12 @@ button.pdf:disabled { cursor: default; color: var(--ink-faint); }
 
 .band-label {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-faint);
-  padding-bottom: 10px;
+  color: var(--accent);
+  padding-bottom: 11px;
   border-bottom: 1px solid var(--rule);
   margin-bottom: 30px;
 }
@@ -245,23 +241,6 @@ footer {
 footer a { color: inherit; }
 footer a:hover { color: var(--ink); }
 
-/* ---------- scroll reveal ---------- */
-
-.js-reveal [data-reveal]:not(.shown) {
-  opacity: 0;
-  transform: translateY(14px);
-}
-
-.js-reveal [data-reveal] {
-  transition: opacity 620ms cubic-bezier(.22,.61,.36,1), transform 620ms cubic-bezier(.22,.61,.36,1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js-reveal [data-reveal]:not(.shown) { opacity: 1; transform: none; }
-  .js-reveal [data-reveal] { transition: none; }
-  #progress { transition: none; }
-}
-
 /* ---------- print ---------- */
 
 @media print {
@@ -273,12 +252,13 @@ footer a:hover { color: var(--ink); }
     --rule: #BBBBBB;
     --accent: #000000;
     --accent-bg: transparent;
+    --accent-line: transparent;
+    --chip-bg: transparent;
   }
   @page { margin: 14mm 15mm; }
   body { font-size: 10pt; line-height: 1.5; background: #fff; }
   .wrap { max-width: none; padding: 0; }
-  #progress, footer, .tools { display: none !important; }
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  footer, .tools { display: none !important; }
   h1 { font-size: 26pt; }
   .summary { font-size: 10.4pt; line-height: 1.5; max-width: none; }
   .meta { font-size: 8.4pt; gap: 3px 11px; }
@@ -302,34 +282,32 @@ footer a:hover { color: var(--ink); }
 </head>
 <body>
 
-<div id="progress" aria-hidden="true"></div>
-
 <div class="wrap">
 
   <header class="masthead">
-    <h1 data-reveal>Carlos Grouchy</h1>
+    <h1>Carlos Grouchy</h1>
 
-    <div class="meta" data-reveal>
+    <div class="meta">
       <span>Victoria, BC, Canada</span>
       <span class="avail">Available MST hours</span>
       <a href="mailto:carlosgrouchy@gmail.com">carlosgrouchy@gmail.com</a>
       <a href="tel:+16042230303">604-223-0303</a>
     </div>
 
-    <p class="summary" data-reveal>
+    <p class="summary">
       Experienced sales professional selling marketing services directly to business owners and operators, closing four- and five-figure monthly retainers within one to two calls. Previously an account executive for an education consulting company, running consultative discovery on inbound calls with students and the parents funding the program.
     </p>
 
-    <div class="tools" data-reveal>
+    <div class="tools">
       <a class="pdf" id="pdfBtn" download="Carlos-Grouchy-Resume.pdf" href="Carlos-Grouchy-Resume.pdf">Download PDF</a>
     </div>
   </header>
 
   <section class="band">
-    <div class="band-label" data-reveal>Sales experience</div>
+    <div class="band-label">Sales experience</div>
 
     <div class="band-body">
-    <article class="role" data-reveal>
+    <article class="role">
       <div class="role-head">
         <h2 class="role-name">Clinic Kickstart <span class="role-title">&mdash; Founder</span></h2>
         <span class="dates">2024&ndash;2025</span>
@@ -343,7 +321,7 @@ footer a:hover { color: var(--ink); }
       </ul>
     </article>
 
-    <article class="role" data-reveal>
+    <article class="role">
       <div class="role-head">
         <h2 class="role-name">GrantMe <span class="role-title">&mdash; Account Executive</span></h2>
         <span class="dates">2023</span>
@@ -361,10 +339,10 @@ footer a:hover { color: var(--ink); }
   </section>
 
   <section class="band">
-    <div class="band-label" data-reveal>Concurrent experience</div>
+    <div class="band-label">Concurrent experience</div>
 
     <div class="band-body">
-    <article class="role" data-reveal>
+    <article class="role">
       <div class="role-head">
         <h2 class="role-name">Symmetry Wellness <span class="role-title">&mdash; Clinic Owner, Registered Massage Therapist</span></h2>
         <span class="dates">2022&ndash;Present</span>
@@ -379,65 +357,21 @@ footer a:hover { color: var(--ink); }
   </section>
 
   <section class="band">
-    <div class="band-label" data-reveal>Education &amp; certification</div>
+    <div class="band-label">Education &amp; certification</div>
     <div class="band-body">
-      <p class="credential" data-reveal>
+      <p class="credential">
         Registered Massage Therapist &mdash; West Coast College of Massage Therapy (WCCMT), 2019 &middot; Licensed by CCHPBC
       </p>
     </div>
   </section>
 
-  <footer data-reveal>
+  <footer>
     <span>Carlos Grouchy</span>
     <a href="mailto:carlosgrouchy@gmail.com">carlosgrouchy@gmail.com</a>
     <a href="tel:+16042230303">604-223-0303</a>
   </footer>
 
 </div>
-
-<script>
-(function () {
-  var bar = document.getElementById('progress');
-  function tick() {
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    var p = h > 0 ? (window.scrollY / h) * 100 : 0;
-    bar.style.width = Math.max(0, Math.min(100, p)) + '%';
-  }
-  window.addEventListener('scroll', tick, { passive: true });
-  window.addEventListener('resize', tick);
-  tick();
-
-  var items = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
-  if (!items.length) return;
-
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Anything already on screen is marked shown BEFORE the hidden state is
-  // enabled, so the first frame is never blank.
-  var fold = window.innerHeight * 0.96;
-  var pending = [];
-  items.forEach(function (el) {
-    if (reduce || el.getBoundingClientRect().top < fold) el.classList.add('shown');
-    else pending.push(el);
-  });
-
-  document.documentElement.classList.add('js-reveal');
-  if (!pending.length || !('IntersectionObserver' in window)) {
-    pending.forEach(function (el) { el.classList.add('shown'); });
-    return;
-  }
-
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('shown');
-      io.unobserve(entry.target);
-    });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-
-  pending.forEach(function (el) { io.observe(el); });
-})();
-</script>
 
 
 </body>
